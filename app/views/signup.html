@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Api App</title>
+  <link rel="icon" type="image/x-icon" href="https://cdn.glitch.global/786523fc-0d05-4caa-afba-8403d0037b78/Commodore-64.jpg?v=1664118348800">
+  <meta name="description" content="Mi primera API"/>
+
+
+  <!-- ---------------- estilos compartidos de login y signup ---------------- -->
+  <link rel="stylesheet" href="./signup.css">
+
+
+  <!-- ---------------------- logica aplicada en register -------------------- -->
+  <script src="./scripts/utils.js" defer></script>
+  <script src="./scripts/signup.js" defer></script>
+
+</head>
+
+<body>
+  <header class="container">
+    <nav>
+      <h1>Mi primer API App| <span>Commodore64</span></h1>
+      
+    </nav>
+  </header>
+
+  <div class="container">
+    <form autocomplete="off">
+      <div class="form-header">
+        <p class="rounded">Register</p>
+      </div>
+
+      <label>Nombre</label>
+      <input id="inputNombre" type="text">
+
+      <label>Apellido</label>
+      <input id="inputApellido" type="text">
+
+      <label>Email</label>
+      <input id="inputEmail" type="text">
+
+      <label>Contraseña</label>
+      <input id="inputPassword" type="text">
+
+      <label>Repetir contraseña</label>
+      <input id="inputPasswordRepetida" type="text">
+
+      <button type="submit">Crear Cuenta</button>
+    </form>
+
+    <div class="ingresarA">
+      <a href="https://important-glossy-tempo.glitch.me/index">¿Ya tienes una cuenta? Ingrese aquí</a>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Api App</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://cdn.glitch.global/786523fc-0d05-4caa-afba-8403d0037b78/Commodore-64.jpg?v=1664118348800"
+    />
+    <meta name="description" content="My First API app" />
+
+    <!-- ---------------- estilos compartidos de login y signup ---------------- -->
+    <link rel="stylesheet" href="./signup.css" />
+
+    <!-- ---------------------- logica aplicada en register -------------------- -->
+    <script src="./scripts/utils.js" defer></script>
+    <script src="./scripts/signup.js" defer></script>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <h1>My first API App | <span>Commodore64</span></h1>
+      </nav>
+    </header>
+    <div class="container">
+    
+      <div class="form-header">
+        <p class="rounded" id="time">Los Endpoints</p>
+      </div>
+      
+      <div class="epcontainer">
+        <div class="izquierda">
+           <a href="https://important-glossy-tempo.glitch.me/productos">
+          <h3>
+           Visualizar todos los productos : /productos
+          </h3></a>
+          <a href="https://important-glossy-tempo.glitch.me/producto/{id}">
+          <h3>
+            Visualizar productos por la id : /productos/id</h3></a>
+          <a href="https://important-glossy-tempo.glitch.me/productoRandom"
+              >
+          <h3>
+            Visualizar productos randomly : /productoRandom
+            </h3></a>
+        </div>
+        <div class="derecha">
+          
+            <a href="https://important-glossy-tempo.glitch.me/json/productos"
+              ><h3>Descarga via API de productos : /json/productos</h3></a
+            >
+          
+          <a
+              href="https://important-glossy-tempo.glitch.me/json/producto/{id}"
+              >
+          <h3>
+            Descarga via API de un producto: /json/productos/id
+          </h3></a
+            >
+          <a
+              href="https://important-glossy-tempo.glitch.me/json/productoRandom"
+              >
+          <h3>
+            Descarga via API de un random : /json/productoRandom/
+          </h3>
+            </a>
+        </div>
+          </div>
+        <div class="epcontainer">
+           <a href="https://important-glossy-tempo.glitch.me/signup"
+              >
+          <h3>
+           signup (solo HTML): /signup
+          </h3>
+             </a
+            >
+          <a href="https://important-glossy-tempo.glitch.me/index"
+              >
+          <h3>
+            index (solo HTML): /index
+          </h3></a>
+        </div>
+        </div>
+       
+     <h4 class="center">COMING SOON</h4>
+    <div id="soon">
+            
+         
+          
+            
+          
+
+          <h3>POST</h3>
+          <h3>PUT</h3>
+          <h3>DELETE</h3>
+      </div>
+     
+
+      <div class="ingresarA">
+        <a href="https://important-glossy-tempo.glitch.me/index.html"
+          >¿Ya tienes una cuenta? Ingrese aquí</a
+        >
+      </div>
+    <script src="./prueba.js"></script>
+  </body>
+</html>

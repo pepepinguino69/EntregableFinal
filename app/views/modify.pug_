@@ -1,0 +1,24 @@
+html
+  link(rel='stylesheet', href='/card.css')
+   
+  
+  head
+    title= title 
+  body
+    .titulo
+      div Mis Productos
+    .container2
+      each datum in data
+        .card
+          imgholder   
+            img(src=datum.url)
+          h2= datum.id
+          h2= datum.title
+          h2= datum.price
+         
+          
+     
+      
+    
+ 
+  

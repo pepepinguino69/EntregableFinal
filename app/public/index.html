@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <style>
+    .chatContainer{height:10rem;border:black 1px solid;margin-top:2rem;overflow-y:scroll}
+    .msgBox{width:800px;height:1rem}
+    
+  
+  
+  </style>
+</head>
+<body>
+    <h2>Add product con websockets</h2>
+  
+  <form autocomplete="off" id="form">
+  
+     
+     <div> 
+      <label>Nombre del Producto</label>
+       <input id="title" type="text" name="title">
+    </div>
+     <div>
+       <label>Precio del producto</label>
+       <input id="price" type="text" name="price">
+     </div>
+     <div>
+       <label>URL de la foto</label>
+       <input id="url" type="text" name="url">
+     </div>
+    
+     
+     
+     <button type="submit">Crear Producto</button>
+   </form>
+  
+  <h3>
+       Envie mensajes
+  </h3>
+       
+  
+    <input type="text" id="messageField" class="msgBox"/>
+    <div id="messageContainer" class="chatContainer">zona</div> 
+  <div id="productContainer" class="chatContainer"></div> 
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="index.js"></script>
+</body>
+</html>

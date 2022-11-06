@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Api App</title>
+  <link rel="icon" type="image/x-icon" href="https://cdn.glitch.global/786523fc-0d05-4caa-afba-8403d0037b78/Commodore-64.jpg?v=1664118348800">
+  <meta name="description" content="Mi primera API"/>
+
+
+  <!-- ---------------- estilos compartidos de login y signup ---------------- -->
+  <link rel="stylesheet" href="/crud.css">
+
+
+  <!-- ---------------------- logica aplicada en register -------------------- -->
+  <script></script>
+  <script></script>
+
+</head>
+
+<body>
+  <header class="container">
+    <nav>
+      <h1>Mi primer API App| <span>Commodore64</span></h1>
+      
+    </nav>
+  </header>
+
+  <div class="container">
+    
+      <div class="form-header" id="functions">
+        <p class="rounded" id="GET">GET</p>
+        <p class="rounded" id="POST">POST</p>
+        <p class="rounded" id="PUT">PUT</p>
+        <p class="rounded" id="DELETE">DELETE</p>
+      </div >
+      <div class="form-header hidden" id="idSelection">
+        <p class="rounded" id="arrowDown">&lt-----</p>
+         
+        <p class="rounded" id="idField"><input class="inputRound rounded" id="inputId" type="text" value="1">
+        
+        </p>
+        <p class="rounded" id="arrowUp">-----&gt</p>
+      </div >
+    <form autocomplete="off" class="hidden" id="form">
+      
+
+
+      <label>Title</label>
+      <input id="inputTitle" type="text">
+
+      <label>Price</label>
+      <input id="inputPrice" type="text">
+
+      <label>URL</label>
+      <input id="inputUrl" type="text">
+     
+      <button type="submit" id="submit">Enviar</button>
+    
+         
+    </form>
+
+    <div class="ingresarA">
+      <a href="https://important-glossy-tempo.glitch.me/index">¿Ya tienes una cuenta? Ingrese aquí</a>
+    </div>
+  </div>
+  <script>
+  postFunction=document.querySelector("#POST").addEventListener('click',(e)=>actions('POST'))
+  putFunction=document.querySelector("#PUT").addEventListener('click',(e)=>actions('PUT'))
+  delFunction=document.querySelector("#DELETE").addEventListener('click',(e)=>actions('DELETE'))
+  
+  function actions(selectedFunction,offset){
+    
+    functions=document.querySelector("#DELETE").classList.add('invisible')
+    functions=document.querySelector("#PUT").classList.add('invisible')
+    functions=document.querySelector("#POST")
+    functions.classList.add('visible')
+    functions.textContent=selectedFunction
+    form=document.querySelector("#form")
+    form.classList.remove('hidden')
+    form=document.querySelector("#form").addEventListener('submit',(e)=>{e.preventDefault();productosCore(selectedFunction)})
+    if(selectedFunction!='POST'){
+      idSelection.classList.remove('hidden')
+      idSelection=document.querySelector("#idSelection")
+      functions=document.querySelector("#functions").classList.add('hidden')
+      inputId.value=1;showForm();
+      idField=document.querySelector('#idField')
+      arrowDown=document.querySelector("#arrowDown").addEventListener('click',(e)=>{if (inputId.value>1){inputId.value--;showForm()}})
+      arrowUp=document.querySelector("#arrowUp").addEventListener('click',(e)=>{inputId.value++;showForm()})}}
+      idField.addEventListener("keypress", (event)=>{if (event.key === "Enter"){showForm()}})
+    
+                                                                                                                                                                                                          
+  
+  function  showForm(){
+    contactApi(("/api/productos/"+inputId.value),{method: "GET",headers: {"Content-type": "application/json; charset=UTF-8"}})}
+  
+    
+    async function contactApi(url, configComm) {
+    let base = "https://important-glossy-tempo.glitch.me";
+    const response = await fetch(base + url, configComm);
+    const data =  await response.json();
+    if (response.status > 299) {
+     alert(response.statusText);
+    } 
+    if (data.title!=undefined){
+      inputTitle.value=data.title;
+      inputPrice.value=data.price;
+      inputUrl.value=data.url;
+       document.querySelector("#submit").classList.remove('hidden')
+    }
+    else{
+      console.log("ese registro no existe")
+      inputTitle.value="producto no encontrado";
+      inputPrice.value="producto no encontrado";
+      inputUrl.value="producto no encontrado";
+      document.querySelector("#submit").classList.add('hidden')
+    }
+}
+  
+  function productosCore(type) {
+  
+  let base = "https://important-glossy-tempo.glitch.me";
+  let config = {
+    method: `${type}`,
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  };
+  
+  offset = "/json/producto/"+inputId.value
+  if (type == 'POST') {
+    offset = "/addProduct"
+  }; 
+  if (type!='DELETE'){
+    config.body = JSON.stringify({ title:inputTitle.value,url:inputUrl.value,price:inputPrice.value})
+  }
+  else {
+    if (confirm('esta Seguro?')) {
+      config.method = 'DELETE' }
+  }
+  alert(offset);
+  alert(config.body);
+  
+  contactApi(offset,config)
+  
+  }
+   
+  
+    
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       canvas{width:50%}
+      .card{display:flex;flex-wrap: wrap;justify-content: center;}
+      .hidden{display:none}
+      .flex{display:flex;justify-content: space-around;align-items: center;}
+      button{width:180px;height:60px;border-radius: 10px;font-size: 20px;}
+      @media only screen and (max-width: 500px) {button{width:90px;font-size: 14px;}
+      #chart-container1, #chart-container2 {
+      position:relative;
+      min-height:auto;
+      width:100%;
+      display: flex;
+      flex-grow:1;
+      flex-direction: column;
+}
+     
+        
+      }
+    </style>
+</head>
+<body>  
+      
+         <div id="chart-container" class="card"></div>
+        <div id="panel" class="flex"></div>
+      
+     
+   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    ctx=[]
+    newCanvas=[]
+    chartID=[]
+    function boton(evento){ newDiv[evento].classList.toggle('hidden')}
+
+    symbolObject=[ 
+    {'id':0,'name':'Ethereum','symbol':'ETHUSDT','description':'Ethereum','url':'https://cdn.glitch.global/786523fc-0d05-4caa-afba-8403d0037b78/eth.svg?v=1664069953510'},
+    {'id':1,'name':'Bitcoin','symbol':'BTCUSDT','description':'Bitcoin','url':'https://cdn.glitch.global/786523fc-0d05-4caa-afba-8403d0037b78/btc.svg?v=1664069936156'},
+    {'id':2,'name':'Binance','symbol':'BNBUSDT','description':'Binance Coin','url':'https://cdn.glitch.global/786523fc-0d05-4caa-afba-8403d0037b78/bnb.svg?v=1664070074726'},
+    {'id':3,'name':'Ripple','symbol':'XRPUSDT','description':'Ripple','url':'https://cdn.glitch.global/786523fc-0d05-4caa-afba-8403d0037b78/xrp.svg?v=1664069974174'}]
+
+    symbolObject.forEach((e,index)=>{
+      btn = document.createElement('button')
+      btn.setAttribute('id',symbolObject[index].id)
+      btn.setAttribute('class','flex')
+      
+      btn.innerText=symbolObject[index]['name']
+      
+      btn.innerHTML+=`<img src="${symbolObject[index]['url']}"/>`
+      
+      btn.addEventListener('click',(e)=>boton(e.target.id))
+      document.getElementById('panel').appendChild(btn)})
+
+    
+    
+
+    
+    let arr=[]
+    const dateColumn=0
+    const priceColumn=4
+    const volumeColumn=5
+    const graphData=[]
+    const graphData2=[]
+    const graphLabels=[]
+    
+    
+    
+    for(i=0;i<4;i++){
+       newCanvas[i]=document.createElement('canvas')
+       newCanvas[i].setAttribute('id','canvas'+i)
+       container=document.querySelector('#chart-container').appendChild(newCanvas[i])
+       graph(i)}
+
+
+      
+
+
+
+    function graph(selectedCrypto){
+
+
+    const baseUrl ='https://api.binance.com'
+    const interUrl='&interval='
+    const symbolUrl='?symbol='
+    const endpointUrl='/api/v3/klines'
+
+    let userSymbolUrl=symbolObject[selectedCrypto].symbol
+    const symbolDesc=symbolObject[selectedCrypto].description
+    let userIntervalUrl='1d'
+
+    let urlApi=baseUrl+endpointUrl+symbolUrl+userSymbolUrl+interUrl+userIntervalUrl
+    
+    
+    async function getTimeSeries() {
+      const response = await fetch(urlApi);
+      const  data = await response.json();
+      return data
+    }
+   getTimeSeries().then((series) => {
+  arr = series;
+  graphData.length=0
+  graphLabels.length=0
+  graphData2.length=0
+  for (let j=0;j<arr.length;j++){
+    if(arr[j][priceColumn]==0){break}
+    graphData.push(arr[j][priceColumn])
+    graphData2.push(arr[j][volumeColumn])
+    let date=new Date(arr[j][dateColumn])
+   
+    graphLabels.push(date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear())
+    
+  }
+ 
+ 
+  
+  chartID[selectedCrypto]=document.getElementById('canvas'+selectedCrypto)
+  ctx[selectedCrypto] = new Chart(chartID[selectedCrypto], {data:{datasets: [
+    {
+    
+    type: 'line',
+      yAxisID: "1",
+          data: [],
+          label: "Bitcoin",
+          borderColor: "#3e95cd",
+          fill: false
+          }
+        ,
+        {
+    
+    type: 'bar',
+    yAxisID: "2",
+          data: [],
+          label: "Bitcoin",
+          borderColor: "#3e95cd",
+          fill: false
+          }
+        ]}
+    ,
+    
+    options:{responsive:false,
+      plugins:{
+        legend:{display:false,labels:{font:{size:30}}},
+        title: {display: true, text: '',font: function(context) {
+  var width = context.chart.width;
+  var size = Math.round(width / 32);
+    return {
+      size: size,
+      weight: 600
+    };
+}}
+              },
+              scales: {
+      1: {
+        type: 'linear',
+        display: true,
+        position: 'left',
+        
+      },
+      2: {
+        type: 'linear',
+        display: true,
+        position: 'right',
+        max:4000000,
+        grid: {
+          drawOnChartArea: true, // only want the grid lines for one axis to show up
+        },
+      },
+
+    }
+            }
+          }
+      
+            );
+    ctx[selectedCrypto].config.data.labels=graphLabels
+
+    ctx[selectedCrypto].config.data.datasets[0].data=graphData
+  
+    ctx[selectedCrypto].config.data.datasets[1].data=graphData2
+    ctx[selectedCrypto].config.data.datasets[0].label=symbolDesc
+    ctx[selectedCrypto].config.options.plugins.title.text=symbolDesc+'  - Daily Price Close - '+graphLabels[0]+'-'+graphLabels.slice(-1)
+    ctx[selectedCrypto].update()
+    }
+   )
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

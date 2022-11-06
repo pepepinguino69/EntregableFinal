@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Api App</title>
+  <link rel="icon" type="image/x-icon" href="https://cdn.glitch.global/786523fc-0d05-4caa-afba-8403d0037b78/Commodore-64.jpg?v=1664118348800">
+  <meta name="description" content="Mi primera API"/>
+
+
+  <!-- ---------------- estilos compartidos de login y signup ---------------- -->
+  <link rel="stylesheet" href="/signup.css">
+
+
+  <!-- ---------------------- logica aplicada en register -------------------- -->
+  <script src="./scripts/utils.js" defer></script>
+  <script src="./scripts/signup.js" defer></script>
+
+</head>
+
+<body>
+  <header class="container">
+    <nav>
+      <h1>Mi primer API App| <span>Commodore64</span></h1>
+      
+    </nav>
+  </header>
+
+  <div class="container">
+    <form action="https://important-glossy-tempo.glitch.me/newProduct/" method="post" autocomplete="off">
+      <div class="form-header">
+        <p class="rounded">Crear Producto</p>
+      </div>
+      <label>Nombre del Producto</label>
+      <input id="title" type="text" name="title">
+      <label>Precio del producto</label>
+      <input id="price" type="text" name="price">
+      <label>URL de la foto</label>
+      <input id="url" type="text" name="url">
+      <button type="submit">Crear Producto</button>
+    </form>
+      </div>
+
+</body>
+
+</html>
