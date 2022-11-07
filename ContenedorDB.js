@@ -1,4 +1,3 @@
-
 export const Contenedor = class ContenedorDB {
     constructor(instance,database,selectedTable,options) {
         this.database=database
@@ -19,18 +18,27 @@ export const Contenedor = class ContenedorDB {
         {title: "mouse",stock:20, price: 88.88, url: "https://cdn.glitch.global/786523fc-0d05-4caa-afba-8403d0037b78/mouse.jfif?v=1664121398670" },
         {title: "teclado",stock:100, price: 888.88, url: "https://cdn.glitch.global/786523fc-0d05-4caa-afba-8403d0037b78/keyboard.jfif?v=1664180232239" },
         {title: "monitor",stock:45, price: 777.45, url: "https://cdn.glitch.global/786523fc-0d05-4caa-afba-8403d0037b78/monitor.jfif?v=1664121446179" }]
-        const tableExistsChat = await this.database.schema.hasTable('chat');
-        const tableExistsProductos = await this.database.schema.hasTable('productos');
-        console.log("ACA");//
+        const tableExistsChat =  await database.schema.hasTable('chat');
+        const tableExistsProductos = await  database.schema.hasTable('productos');
+        
+      
+      
+      
+      
+      
+      
+      console.log("ACA nabo");//
+        console.log(tableExistsProductos)
         if (engine == "mySql" && (!tableExistsProductos)) {
             console.log("creanto tabla");
-            await database.schema.createTable(this.selectedTable, table => {
+            try{
+                await database.schema.createTable('productos', table => {
                 table.increments("id");
                 table.string("title", 15).nullable(true);
                 table.integer("stock").nullable(true);
                 table.float("price").nullable(true);
-                table.string("url", 255);
-            })
+                table.string("url", 255);})
+            }catch (err){console.log(err)}
                 try {
                     articulosArray.forEach(e => {
                         console.log(e);
